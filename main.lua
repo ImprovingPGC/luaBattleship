@@ -1,4 +1,4 @@
-local suit = require 'suit'
+local suit = require 'SUIT'
 local nameInput = {text = ""}
 
 function love.update(dt)
