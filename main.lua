@@ -1,26 +1,35 @@
 local suit = require 'SUIT'
+require "game"
 local nameInput = {text = ""}
+local isInIntro = true
 
 function love.update(dt)
 	local windowWidth = love.graphics.getWidth()
 	local windowHeight = love.graphics.getHeight()	
 
-	suit.layout:reset(windowWidth/3,0)
-	suit.Label("Welcome to Improving Battleship!", suit.layout:row(windowWidth/3, 30))
-	suit.layout:push(windowWidth/3, windowHeight/2)
-	suit.Label("Please enter your name", suit.layout:row(windowWidth/3, 30))
-	suit.Input(nameInput, suit.layout:row())
-	if nameInput.text ~= "" then
-		suit.Label("Hello, " .. nameInput.text .. "!", suit.layout:row())
-	end
-	suit.layout:row()
-	if suit.Button("Start!", suit.layout:row()).hit then
-		-- start game with the given name
-	end
-	suit.layout:row()
+	if (isInIntro) then
+		suit.layout:reset(windowWidth/3,0)
+		suit.Label("Welcome to Improving Battleship!", suit.layout:row(windowWidth/3, 30))
+		suit.layout:push(windowWidth/3, windowHeight/2)
+		suit.Label("Please enter your name", suit.layout:row(windowWidth/3, 30))
+		suit.Input(nameInput, suit.layout:row())
+		if nameInput.text ~= "" then
+			suit.Label("Hello, " .. nameInput.text .. "!", suit.layout:row())
+		end
 
-	if suit.Button("Close", suit.layout:row()).hit then
-		love.event.quit()
+		suit.layout:row()
+		if suit.Button("Start!", suit.layout:row()).hit then
+			love.graphics.clear()
+			isInIntro = false	
+		end
+		
+		suit.layout:row()
+		if suit.Button("Close", suit.layout:row()).hit then
+			love.event.quit()
+		end
+
+	else 
+		start(nameInput)
 	end
 end
 
