@@ -2,9 +2,9 @@
 
 local BASE = (...):match('(.-)[^%.]+$')
 
-return function(core, text, ...)
+return function(core, text, id, ...)
 	local opt, x,y,w,h = core.getOptionsAndSize(...)
-	opt.id = opt.id or text
+	opt.id = id or text
 	opt.font = opt.font or love.graphics.getFont()
 
 	w = w or opt.font:getWidth(text) + 4

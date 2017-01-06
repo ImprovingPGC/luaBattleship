@@ -8,22 +8,44 @@ function start(name)
 	local windowHeight = love.graphics.getHeight()
 
 	local width, height = windowWidth/24, windowHeight/24
-	makeGrid(width, height, width, height)
+	local newXPosition = windowWidth/4
 
-	local newXPosition = windowWidth/2
+	makeGrid("Enemy", width, height, newXPosition, height)
+
+	
 	local newYPosition = windowHeight/2
-	makeGrid(width, height, newXPosition, newYPosition)
+	makeGrid("Friendly", width, height, newXPosition, newYPosition)
 end
 
-function makeGrid(width, height, startXPosition, startYPosition)
-	local currentX, currentY = startXPosition, startYPosition
+function makeGrid(player, width, height, startXPosition, startYPosition)
+	currentX, currentY = startXPosition, startYPosition
+
+	createXAxisLables(width, height, startXPosition)
+
 	for i=1, numberOfRows do
+		row = string.sub(alphabet, i, i)
+		createYAxisLabel(width, height)
 		for j=1, numberOfColumns do 
-			row = string.sub(alphabet, i, i)
-			suit.Button(row..j, currentX, currentY, width, height)
+			suit.Button("", player..row..j, currentX, currentY, width, height)
 			currentX = currentX + width
 		end
 		currentX = startXPosition
 		currentY = currentY + height
 	end
+end
+
+function createXAxisLables(width, height, startXPosition)
+	currentX = currentX + width
+	for j=1, numberOfColumns do 
+		suit.Label(j, currentX, currentY, width, height)
+		currentX = currentX + width
+	end
+		
+	currentX = startXPosition
+	currentY = currentY + height
+end
+
+function createYAxisLabel(width, height)
+	suit.Label(row, currentX, currentY, width, height)
+	currentX = currentX + width
 end

@@ -18,13 +18,13 @@ function love.update(dt)
 		end
 
 		suit.layout:row()
-		if suit.Button("Start!", suit.layout:row()).hit then
+		if suit.Button("Start!", "start", suit.layout:row()).hit then
 			love.graphics.clear()
 			isInIntro = false	
 		end
 		
 		suit.layout:row()
-		if suit.Button("Close", suit.layout:row()).hit then
+		if suit.Button("Close","close", suit.layout:row()).hit then
 			love.event.quit()
 		end
 
