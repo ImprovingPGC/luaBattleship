@@ -4,54 +4,50 @@ local alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 local numberOfRows, numberOfColumns = 10, 10
 
 function start(name)
-	local windowWidth = love.graphics.getWidth()
-	local windowHeight = love.graphics.getHeight()
+	WINDOW_WIDTH = love.graphics.getWidth()
+	WINDOW_HEIGHT = love.graphics.getHeight()
 
-	local width, height = windowWidth/24, windowHeight/24
-	local boardXPosition = windowWidth/4
-	labelXPosition, labelYPosition = windowWidth/12, windowHeight/4
+	WIDTH, HEIGHT = WINDOW_WIDTH/24, WINDOW_HEIGHT/24
+	local boardXPosition = WINDOW_WIDTH/4
+	labelXPosition, labelYPosition = WINDOW_WIDTH/12, WINDOW_HEIGHT/4
 
-	makeGrid("Enemy", width, height, boardXPosition, height)
+	makeGrid("Enemy", boardXPosition, HEIGHT)
 	
-	local playerYPosition = windowHeight/2
+	local playerYPosition = WINDOW_HEIGHT/2
 	labelYPosition = labelYPosition * 3
-	makeGrid(name, width, height, boardXPosition, playerYPosition)
+	makeGrid(name, boardXPosition, playerYPosition)
 end
 
-function makeGrid(player, width, height, startXPosition, startYPosition)
+function makeGrid(player, startXPosition, startYPosition)
 	currentX, currentY = startXPosition, startYPosition
 	
-	label(player, width, height)
-	createXAxisLables(width, height, startXPosition)
+	suit.Label(player, labelXPosition, labelYPosition, WIDTH * 4, HEIGHT)
+	createXAxisLables(startXPosition)
 
 	for i=1, numberOfRows do
 		row = string.sub(alphabet, i, i)
-		createYAxisLabel(width, height)
+		createYAxisLabel()
 		for j=1, numberOfColumns do 
-			suit.Button("", player..row..j, currentX, currentY, width, height)
-			currentX = currentX + width
+			suit.Button("", player..row..j, currentX, currentY, WIDTH, HEIGHT)
+			currentX = currentX + WIDTH
 		end
 		currentX = startXPosition
-		currentY = currentY + height
+		currentY = currentY + HEIGHT
 	end
 end
 
-function label(player, width, height)
-	suit.Label(player, labelXPosition, labelYPosition, width, height)
-end
-
-function createXAxisLables(width, height, startXPosition)
-	currentX = currentX + width
+function createXAxisLables(startXPosition)
+	currentX = currentX + WIDTH
 	for j=1, numberOfColumns do 
-		suit.Label(j, currentX, currentY, width, height)
-		currentX = currentX + width
+		suit.Label(j, currentX, currentY, WIDTH, HEIGHT)
+		currentX = currentX + WIDTH
 	end
 		
 	currentX = startXPosition
-	currentY = currentY + height
+	currentY = currentY + HEIGHT
 end
 
-function createYAxisLabel(width, height)
-	suit.Label(row, currentX, currentY, width, height)
-	currentX = currentX + width
+function createYAxisLabel()
+	suit.Label(row, currentX, currentY, WIDTH, HEIGHT)
+	currentX = currentX + WIDTH
 end
