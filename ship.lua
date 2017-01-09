@@ -27,15 +27,3 @@ end
 function Ship:length()
 	return #self.location
 end
-
-battleship = Ship:new({location = {"A1", "B1", "C1", "D1"}})
-print(battleship:length()) -- 4
-print(battleship.length(battleship)) --4
-print(battleship:isHit("B1")) --true
-print(battleship:isHit("B4")) --false
-print(battleship.hitLocations[1]) --B1
-print(battleship:isSunk()) --false
-print(battleship:isHit("A1")) --true
-print(battleship:isHit("C1")) --true
-print(battleship:isHit("D1")) --true
-print(battleship:isSunk()) --true
