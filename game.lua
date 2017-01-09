@@ -8,18 +8,20 @@ function start(name)
 	local windowHeight = love.graphics.getHeight()
 
 	local width, height = windowWidth/24, windowHeight/24
-	local newXPosition = windowWidth/4
+	local boardXPosition = windowWidth/4
+	labelXPosition, labelYPosition = windowWidth/12, windowHeight/4
 
-	makeGrid("Enemy", width, height, newXPosition, height)
-
+	makeGrid("Enemy", width, height, boardXPosition, height)
 	
-	local newYPosition = windowHeight/2
-	makeGrid("Friendly", width, height, newXPosition, newYPosition)
+	local playerYPosition = windowHeight/2
+	labelYPosition = labelYPosition * 3
+	makeGrid(name, width, height, boardXPosition, playerYPosition)
 end
 
 function makeGrid(player, width, height, startXPosition, startYPosition)
 	currentX, currentY = startXPosition, startYPosition
-
+	
+	label(player, width, height)
 	createXAxisLables(width, height, startXPosition)
 
 	for i=1, numberOfRows do
@@ -32,6 +34,10 @@ function makeGrid(player, width, height, startXPosition, startYPosition)
 		currentX = startXPosition
 		currentY = currentY + height
 	end
+end
+
+function label(player, width, height)
+	suit.Label(player, labelXPosition, labelYPosition, width, height)
 end
 
 function createXAxisLables(width, height, startXPosition)

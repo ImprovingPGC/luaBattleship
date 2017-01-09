@@ -29,7 +29,7 @@ function love.update(dt)
 		end
 
 	else 
-		start(nameInput)
+		start(nameInput.text)
 	end
 end
 
