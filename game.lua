@@ -3,7 +3,7 @@ local suit = require 'SUIT'
 local alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 local numberOfRows, numberOfColumns = 10, 10
 
-function start(name)
+function start()
 	WINDOW_WIDTH = love.graphics.getWidth()
 	WINDOW_HEIGHT = love.graphics.getHeight()
 
@@ -15,7 +15,7 @@ function start(name)
 	
 	local playerYPosition = WINDOW_HEIGHT/2
 	labelYPosition = labelYPosition * 3
-	makeGrid(name, boardXPosition, playerYPosition)
+	makeGrid(nameInput.text, boardXPosition, playerYPosition)
 end
 
 function makeGrid(player, startXPosition, startYPosition)
