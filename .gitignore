@@ -16,6 +16,7 @@ luac.out
 # Precompiled Headers
 *.gch
 *.pch
+.DS_Store
 
 # Libraries
 *.lib
