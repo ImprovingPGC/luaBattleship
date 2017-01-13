@@ -1,9 +1,10 @@
-local suit = require 'SUIT'
 require 'game'
 
 function intro()
 	local windowWidth = love.graphics.getWidth()
 	local windowHeight = love.graphics.getHeight()
+
+	background = love.graphics.newImage('/images/background.jpg')
 
 	suit.layout:reset(windowWidth/3,0)
 	suit.Label("Welcome to Improving Battleship!", suit.layout:row(windowWidth/3, 30))
@@ -17,9 +18,9 @@ function intro()
 	suit.layout:row()
 	if suit.Button("Start!", "start", suit.layout:row()).hit then
 		love.graphics.clear()
-		gameState = start	
+		gameState = start
 	end
-	
+
 	suit.layout:row()
 	if suit.Button("Close","close", suit.layout:row()).hit then
 		love.event.quit()
