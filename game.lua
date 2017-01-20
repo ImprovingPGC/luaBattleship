@@ -2,6 +2,11 @@ local suit = require 'SUIT'
 
 local alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 local numberOfRows, numberOfColumns = 10, 10
+local isAddObject=false
+local enemy = "Enemy"
+local playerYPosition
+
+
 
 function start()
 	gameState.background = nil
@@ -10,46 +15,44 @@ function start()
 	WINDOW_HEIGHT = love.graphics.getHeight()
 
 	WIDTH, HEIGHT = WINDOW_WIDTH/24, WINDOW_HEIGHT/24
-	local boardXPosition = WINDOW_WIDTH/4
-	labelXPosition, labelYPosition = WINDOW_WIDTH/12, WINDOW_HEIGHT/4
 
-	makeGrid("Enemy", boardXPosition, HEIGHT)
+	playerYPosition = HEIGHT
 
-	local playerYPosition = WINDOW_HEIGHT/2
-	labelYPosition = labelYPosition * 3
-	makeGrid(gameState.nameInput.text, boardXPosition, playerYPosition)
+	suit.layout:reset(WINDOW_WIDTH/12, WINDOW_HEIGHT/4, 1, 10)
+
+	makeGrid(enemy, HEIGHT)
+
+	playerYPosition = WINDOW_HEIGHT/2
+
+	suit.layout:reset(WINDOW_WIDTH/4,playerYPosition, 1, 1)
+	
+	suit.layout:reset(WINDOW_WIDTH/12, WINDOW_HEIGHT/4*3, 1, 2)
+	makeGrid(gameState.nameInput.text, playerYPosition)
 end
 
-function makeGrid(player, startXPosition, startYPosition)
-	currentX, currentY = startXPosition, startYPosition
+function makeGrid(player, startYPosition)	
+	suit.Label(player, suit.layout:row(WIDTH*4,HEIGHT))
 
-	suit.Label(player, labelXPosition, labelYPosition, WIDTH * 4, HEIGHT)
-	createXAxisLables(startXPosition)
+	suit.layout:reset(WINDOW_WIDTH/4,startYPosition, 1, 1)
+	createXAxisLables()
 
 	for i=1, numberOfRows do
 		row = string.sub(alphabet, i, i)
-		createYAxisLabel()
-		for j=1, numberOfColumns do
-			suit.Button("", player..row..j, currentX, currentY, WIDTH, HEIGHT)
-			currentX = currentX + WIDTH
+		createYAxisLabel(i)
+		for j=1, numberOfColumns do 
+			suit.Button("", player..row..j, suit.layout:col(WIDTH, HEIGHT))
 		end
-		currentX = startXPosition
-		currentY = currentY + HEIGHT
 	end
 end
 
-function createXAxisLables(startXPosition)
-	currentX = currentX + WIDTH
-	for j=1, numberOfColumns do
-		suit.Label(j, currentX, currentY, WIDTH, HEIGHT)
-		currentX = currentX + WIDTH
+function createXAxisLables()
+	suit.layout:col(WIDTH, HEIGHT)
+	for j=1, numberOfColumns do 
+		suit.Label(j, suit.layout:col())
 	end
-
-	currentX = startXPosition
-	currentY = currentY + HEIGHT
 end
 
-function createYAxisLabel()
-	suit.Label(row, currentX, currentY, WIDTH, HEIGHT)
-	currentX = currentX + WIDTH
+function createYAxisLabel(colnum)
+	suit.layout:push(WINDOW_WIDTH/4, playerYPosition+ HEIGHT*colnum)
+	suit.Label(row, suit.layout:row(WIDTH, HEIGHT))
 end
