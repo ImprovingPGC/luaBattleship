@@ -1,13 +1,27 @@
 suit = require 'SUIT'
-require 'intro'
+intro = require 'intro'
+lobby = require 'lobby'
+game = require 'game'
+network = require 'network'
+
 gameState = {
-	update = intro,
+	currentState = intro,
 	background = nil,
-	nameInput = {text = ""}
+	playerName = {text = ""},
+	network = {
+		ip = nil, -- will need to be discovered in love.load()
+		serverNamePrefix = "PgcBattleship:",
+		discoveryPort = 12521, -- used for peering
+		gamePort = 12522 -- used during an active game
+	}
 }
 
+function love.load()
+	gameState.network.ip = network:getIp()
+end
+
 function love.update(dt)
-	gameState.update()
+	gameState.currentState:update()
 end
 
 function love.draw()
