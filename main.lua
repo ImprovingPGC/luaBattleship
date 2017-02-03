@@ -5,7 +5,7 @@ game = require 'game'
 network = require 'network'
 
 gameState = {
-	currentState = intro,
+	currentState = nil,
 	background = nil,
 	playerName = {text = ""},
 	network = {
@@ -18,6 +18,7 @@ gameState = {
 
 function love.load()
 	gameState.network.ip = network:getIp()
+	intro:takeScreen()
 end
 
 function love.update(dt)

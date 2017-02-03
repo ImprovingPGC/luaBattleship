@@ -1,10 +1,17 @@
 intro = {}
 
+function intro:takeScreen()
+  love.graphics.clear()
+  if not self.background then
+    self.background = love.graphics.newImage('/images/background.jpg')
+  end
+  gameState.background = self.background
+  gameState.currentState = self
+end
+
 function intro:update()
 	local windowWidth = love.graphics.getWidth()
 	local windowHeight = love.graphics.getHeight()
-
-	gameState.background = love.graphics.newImage('/images/background.jpg')
 
 	suit.layout:reset(windowWidth/3,0)
 	suit.Label("Welcome to Improving Battleship!", suit.layout:row(windowWidth/3, 30))
@@ -17,8 +24,7 @@ function intro:update()
 
 	suit.layout:row()
 	if suit.Button("Find Suckers!", "lobby", suit.layout:row()).hit then
-		love.graphics.clear()
-		gameState.currentState = lobby
+		lobby:takeScreen()
 	end
 
 	suit.layout:row()

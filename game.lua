@@ -6,11 +6,14 @@ local isAddObject=false
 local enemy = "Enemy"
 local playerYPosition
 
+function game:takeScreen()
+  love.graphics.clear()
+  gameState.background = nil
+  gameState.currentState = self
+end
 
 
 function game:update()
-	gameState.background = nil
-
 	WINDOW_WIDTH = love.graphics.getWidth()
 	WINDOW_HEIGHT = love.graphics.getHeight()
 	WIDTH, HEIGHT = WINDOW_WIDTH/24, WINDOW_HEIGHT/24
