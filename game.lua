@@ -5,8 +5,15 @@ local numberOfRows, numberOfColumns = 10, 10
 local isAddObject=false
 local enemy = "Enemy"
 local playerYPosition
+local text = ""
+local tile
+local try
 
-
+local option=	{
+			color = {
+				normal   = {bg = { 0, 66, 66}, fg = {0,188,188}}
+					}
+				}
 
 function game:update()
 	gameState.background = nil
@@ -24,8 +31,22 @@ function game:update()
 	playerYPosition = WINDOW_HEIGHT/2
 	suit.layout:reset(WINDOW_WIDTH/4,playerYPosition, 1, 1)
 	suit.layout:reset(WINDOW_WIDTH/12, WINDOW_HEIGHT/4*3, 1, 2)
-
 	makeGrid(gameState.playerName.text, playerYPosition)
+
+
+
+	addObject = suit.Button("Add Object", "id", WINDOW_WIDTH*3/4, playerYPosition)
+	if addObject.hit then 
+		isAddObject = true
+		if tile ~= nil then
+			try = tile.opt.state
+		end
+	end 
+	suit.Label(text, WINDOW_WIDTH*3/4, playerYPosition+10, WIDTH * 4, HEIGHT)
+	if tile ~= nil then
+		try = tile.opt.state
+		suit.Label(try, WINDOW_WIDTH*3/4, playerYPosition+20, WIDTH * 4, HEIGHT)
+	end
 end
 
 function makeGrid(player, startYPosition)
@@ -38,7 +59,16 @@ function makeGrid(player, startYPosition)
 		row = string.sub(alphabet, i, i)
 		createYAxisLabel(i)
 		for j=1, numberOfColumns do
-			suit.Button("", player..row..j, suit.layout:col(WIDTH, HEIGHT))
+			--suit.Button("", player..row..j, suit.layout:col(WIDTH, HEIGHT))
+			option.id = player..row..j
+			boardTile = suit.Button("", option.id, option, suit.layout:col(WIDTH, HEIGHT))
+			if player ~= enemy and isAddObject and boardTile.hit then
+				text = boardTile.opt.state
+				tile = boardTile
+				--boardTile.opt = option
+				--boardTile:setFillColor(0,0,0)
+				isAddObject = false
+			end
 		end
 	end
 end
