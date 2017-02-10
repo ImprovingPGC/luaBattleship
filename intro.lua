@@ -9,7 +9,7 @@ function intro:takeScreen()
   gameState.currentState = self
 end
 
-function intro:update()
+function intro:update(dt)
 	local windowWidth = love.graphics.getWidth()
 	local windowHeight = love.graphics.getHeight()
 

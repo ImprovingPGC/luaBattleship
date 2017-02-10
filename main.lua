@@ -22,7 +22,7 @@ function love.load()
 end
 
 function love.update(dt)
-	gameState.currentState:update()
+	gameState.currentState:update(dt)
 end
 
 function love.draw()

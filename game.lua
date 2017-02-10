@@ -13,7 +13,7 @@ function game:takeScreen()
 end
 
 
-function game:update()
+function game:update(dt)
 	WINDOW_WIDTH = love.graphics.getWidth()
 	WINDOW_HEIGHT = love.graphics.getHeight()
 	WIDTH, HEIGHT = WINDOW_WIDTH/24, WINDOW_HEIGHT/24
